@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +26,20 @@ public class GoogleAuthController {
 
   private final WebClient webClient = WebClient.create();
 
-  private String CLIENT_ID = "325668460051-d5967s3kk7n60a5qr5li16j23qmd4the.apps.googleusercontent.com";
-  private String CLIENT_SECRET = "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";
-  private String SCOPE = "profile";
-  private String REDIRECT_URL = "http://localhost:8080/api/auth/google/redirect_url";
-  private String STATE = "myid";
+  @Value("${google.oauth.client-id}")
+  private String CLIENT_ID;
+
+  @Value("${google.oauth.client-secret}")
+  private String CLIENT_SECRET;
+
+  @Value("${google.oauth.scope}")
+  private String SCOPE;
+
+  @Value("${google.oauth.redirect-url}")
+  private String REDIRECT_URL;
+
+  @Value("${google.oauth.state}")
+  private String STATE;
 
   @GetMapping("/generate_url")
   public Mono<String> generateGoogleOAuthURL() {
@@ -49,7 +59,7 @@ public class GoogleAuthController {
       @RequestParam(required = false) String error,
       ServerHttpResponse response) {
     log.info("control inside GoogleAuthController.handleAuthorizationCode()");
-        
+
     if (error != null) {
       log.error("Error during auth: {}", error);
       response.setStatusCode(HttpStatus.FOUND);

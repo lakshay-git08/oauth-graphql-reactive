@@ -14,21 +14,8 @@ public class MetaAuthController {
 
     private final WebClient webClient = WebClient.create();
 
-    @Value("${CLIENT_ID}")
-    private String CLIENT_ID;
-
-    @Value("${CLIENT_SECRET}")
-    private String CLIENT_SECRET;
-
-    @Value("${SCOPE}")
-    private String SCOPE;
-
-    @Value("${REDIRECT_URL}")
-    private String REDIRECT_URL;
-
-    @Value("${STATE}")
-    private String STATE;
-
     
+
+
 
 }

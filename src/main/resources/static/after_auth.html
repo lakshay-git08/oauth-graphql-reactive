@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    img {
+      border-radius: 50%;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>You are logged in</h1>
+  <div id="user-info"></div>
+</body>
+<script>
+  window.addEventListener("load", () => {
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    if (!token) {
+      document.getElementById("user-info").textContent = "No token found in URL.";
+      return;
+    }
+
+    try {
+      const decoded = jwt_decode(token);
+
+      const name = decoded.name || decoded.given_name || "Unknown User";
+      const picture = decoded.picture || "";
+
+      document.getElementById("user-info").innerHTML = `
+          <h2>Welcome, ${name}!</h2>
+          ${picture ? `<img src="${picture}" alt="Profile Picture" width="120" />` : ""}
+        `;
+    } catch (err) {
+      console.error("Failed to decode token", err);
+      document.getElementById("user-info").textContent = "Failed to decode ID token.";
+    }
+  });
+</script>
+
+</html>

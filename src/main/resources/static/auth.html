@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button><a id="google-oauth-url">Login with Google</a></button>
+</body>
+
+<script>
+  window.addEventListener("load", () => {
+    fetch("http://localhost:8080/api/auth/google/generate_url")
+    .then(data => data.text())
+    .then(url => {
+      const a = document.getElementById("google-oauth-url");
+      a.setAttribute("href", url);
+    })
+  })
+</script>
+</html>

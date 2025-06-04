@@ -1,22 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login with GitHub</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .github-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #24292e;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .github-button:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
+
 <body>
-  <button><a id="google-oauth-url">Login with Google</a></button>
+  <a id="oauth-url" class="github-button" href="#">
+    Login
+  </a>
+
+  <script>
+    window.addEventListener("load", () => {
+      fetch("http://localhost:2025/oauth/generate_url")
+        .then((response) => response.text())
+        .then((url) => {
+          const link = document.getElementById("oauth-url");
+          link.setAttribute("href", url);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch OAuth URL", err);
+          alert("Error loading login. Please try again.");
+        });
+    });
+  </script>
 </body>
 
-<script>
-  window.addEventListener("load", () => {
-    fetch("http://localhost:8080/api/auth/google/generate_url")
-    .then(data => data.text())
-    .then(url => {
-      const a = document.getElementById("google-oauth-url");
-      a.setAttribute("href", url);
-    })
-  })
-</script>
 </html>

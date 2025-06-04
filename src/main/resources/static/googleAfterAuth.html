@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub OAuth Success</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f9f9f9;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .info {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <p class="info">Fetching your profile...</p>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (id) {
+            fetch(`http://localhost:2025/api/user/${id}`)
+                .then(res => res.json())
+                .then(user => {
+                    const name = user.name || "Unknown";
+                    const picture = user.picture || "Unknown picture";
+                    const infoDiv = document.querySelector(".info");
+                    infoDiv.innerHTML = `<strong>Name:</strong> ${name}<br> <strong>Picture:</strong> <div style="text-align: center; margin-top: 10px;"> <img src="${picture}" alt="Profile Picture" width="100" height="100" style="border-radius: 50%;"> </div>`;
+                })
+                .catch(err => {
+                    console.error("Failed to fetch user", err);
+                    document.querySelector(".info").textContent = "Failed to load user info.";
+                });
+        } else {
+            document.querySelector(".info").textContent = "Missing user ID in URL.";
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,11 @@
 package com.example.oauth_graphql_reactive.controller;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +27,6 @@ public class UserController {
     public Mono<User> getUserById(@PathVariable String id) {
         return userService.getUserById(id);
     }
+
 
 }

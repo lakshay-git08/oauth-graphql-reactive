@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login with GitHub</title>
+  <title>Login Page</title>
   <style>
     body {
       font-family: sans-serif;
@@ -19,7 +19,7 @@
     .github-button {
       display: inline-block;
       padding: 12px 24px;
-      background-color: #24292e;
+      background-color: #656668;
       color: #ffffff;
       border: none;
       border-radius: 6px;
@@ -30,31 +30,133 @@
       cursor: pointer;
     }
 
+    .google-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #edba11;
+      /* Google's Blue */
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .meta-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #1877F2;
+      /* Meta/Facebook Blue */
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .discord-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #038ff3;
+      /* Meta/Facebook Blue */
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .microsoft-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #ff0000;
+      /* Meta/Facebook Blue */
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .twitter-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #01a1f7;
+      /* Meta/Facebook Blue */
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+
+    /* <!-- github, google, meta , discord, microsoft, twitter --> */
+
     .github-button:hover {
-      background-color: #333;
+      background-color: black;
+    }
+
+    .google-button:hover {
+      background-color: black;
+    }
+
+    .meta-button:hover {
+      background-color: black;
+    }
+
+    .discord-button:hover {
+      background-color: black;
+    }
+
+    .microsoft-button:hover {
+      background-color: black;
+    }
+
+    .twitter-button:hover {
+      background-color: black;
     }
   </style>
 </head>
 
 <body>
-  <a id="oauth-url" class="github-button" href="#">
-    Login
-  </a>
+  <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
 
-  <script>
-    window.addEventListener("load", () => {
-      fetch("http://localhost:2025/oauth/generate_url")
-        .then((response) => response.text())
-        .then((url) => {
-          const link = document.getElementById("oauth-url");
-          link.setAttribute("href", url);
-        })
-        .catch((err) => {
-          console.error("Failed to fetch OAuth URL", err);
-          alert("Error loading login. Please try again.");
-        });
-    });
-  </script>
+    <a href="http://localhost:2025/auth/callback/google" class="google-button">
+      Login with Google
+    </a>
+    <a href="http://localhost:2025/auth/callback/github" class="github-button">
+      Login with Github
+    </a>
+    <a href="http://localhost:2025/auth/callback/meta" class="meta-button">
+      Login with Meta
+    </a>
+    <a id="oauth-url" class="discord-button" href="#">
+      Login with Discord
+    </a>
+    <a id="oauth-url" class="microsoft-button" href="#">
+      Login with Microsoft
+    </a>
+    <a id="oauth-url" class="twitter-button" href="#">
+      Login with Twitter
+    </a>
+
+  </div>
 </body>
 
 </html>

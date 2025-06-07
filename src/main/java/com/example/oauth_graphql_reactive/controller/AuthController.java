@@ -26,6 +26,12 @@ public class AuthController {
 
     @Autowired
     MetaAuthController metaAuthController;
+    @Autowired
+    DiscordAuthController discordAuthController;
+
+    AuthController(DiscordAuthController discordAuthController) {
+        this.discordAuthController = discordAuthController;
+    }
 
     @GetMapping("/callback/{type}")
     public Mono<Void> generateRedirectURL(@PathVariable String type, ServerHttpResponse response) {
@@ -38,6 +44,8 @@ public class AuthController {
             redirectUrl = githubAuthController.generateGitHubOAuthURL();
         } else if ("meta".equals(type)) {
             redirectUrl = metaAuthController.generateMetaOAuthURL();
+        } else if ("discord".equals(type)) {
+            redirectUrl = discordAuthController.generateDiscordOAuthURL();
         }
 
         response.setStatusCode(HttpStatus.FOUND);
